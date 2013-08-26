@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,24 +29,53 @@ namespace SuperMarketLockerSystem.SuperMarketLockerSystemTest
         }
 
         [Test]
-        public void should_not_store_bag_when_the_locker_is_full()
+        public void should_throw_StoreInFullLockerException_when_store_bag_in_full_locker()
         {
             var bag1 = new Bag();
             var bag2 = new Bag();
             locker.Store(bag1);
-//            locker.Store(bag2);
-            //            Assert.Throws<StoreBagInFullLockerException>(delegate { throw new StoreBagInFullLockerException("Can't store bag in a full locker"); } );
-
-                        Assert.Throws<StoreBagInFullLockerException>(() => locker.Store(bag2));
+            Assert.Throws<StoreBagInFullLockerException>(() => locker.Store(bag2));
         }
 
         [Test]
-        public void should_store_nothing_in_locker()
+        public void should_can_store_nothing_in_locker()
         {
             Bag bag = null;
             Ticket ticket = locker.Store(bag);
             Assert.That(ticket, Is.Not.Null);
         }
 
+        [Test]
+        public void should_pick_correct_bag_with_ticket()
+        {
+            Bag storedBag = new Bag();
+            Ticket ticket = locker.Store(storedBag);
+            Bag pickedBag = locker.PickWith(ticket);
+            Assert.AreEqual(storedBag, pickedBag);
+        }
+
+        [Test]
+        public void should_throw_InvalidTicketException_when_pick_a_bag_with_null_ticket()
+        {
+            Bag bag = new Bag();
+            Ticket ticket = null;
+            Assert.Throws<InvaidTicketException>(() => locker.PickWith(ticket));
+        }
+
+        [Test]
+        [Ignore]
+        public void should_return_null_when_pick_a_bag_with_not_mapped_ticket()
+        {
+            Bag bag = new Bag();
+            locker.Store(bag);
+            Ticket ticket = new Ticket(new Bag());
+            Assert.That(locker.PickWith(ticket), Is.Null);
+        }
+
+    }
+
+    internal class InvaidTicketException: Exception
+    {
+        public InvaidTicketException(string message) : base(message) {}
     }
 }

@@ -1,26 +1,44 @@
-﻿using SuperMarketLockerSystem.SuperMarketLockerSystemTest;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using SuperMarketLockerSystem.SuperMarketLockerSystemTest;
 
 namespace SuperMarketLockerSystem
 {
     public class Locker
     {
-        private Ticket ticket = new Ticket();
         private int storeFlag = 0;
-        public Ticket Store(Bag bag)
+        List<Bag> bags = new List<Bag>();
+        List<Ticket> tickets = new List<Ticket>();
+
+        public Ticket Store(Bag parameterBag)
         {
             if (storeFlag == 0)
             {
                 storeFlag ++ ;
+                bags.Add(parameterBag);
+                Ticket ticket = new Ticket(parameterBag);
+                tickets.Add(ticket);
                 return ticket;
             }
             else
             {
-                throw new StoreBagInFullLockerException("Can't store bag in a full locker");
+                throw new StoreBagInFullLockerException("Can't store parameterBag in a full locker");
             }
         }
-    }
 
-    public class Ticket
-    {
+//        public Bag PickWith(Ticket ticket)
+//        {
+//            return bags.Where(bag => bag.Equals(ticket.bag));
+//        }
+
+        public Bag PickWith(Ticket ticket)
+        {
+            if (ticket != null)
+            {
+                return bags.FirstOrDefault(bag => bag.Equals(ticket.bag));
+            }
+            throw new InvaidTicketException("Ticket is null");
+        }
     }
 }
