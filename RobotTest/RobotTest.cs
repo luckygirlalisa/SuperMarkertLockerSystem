@@ -61,5 +61,17 @@ namespace SuperMarketLockerSystem
             var ticket2 = robot.Store(bag2);
             Assert.That(bag2, Is.SameAs(robot.Pick(ticket2)));
         }
+
+        [Test]//TODO: refactor: Added code for test, bad smell
+        public void should_store_in_order_when_store_multiple_bags()
+        {
+            var bag1 = new Bag();
+            var bag2 = new Bag();
+            Ticket ticket1 = robot.Store(bag1);
+            int indexOfLocker1 = ticket1.belonedLockerId;
+            Ticket ticket2 = robot.Store(bag2);
+            int indexOfLocker2 = ticket2.belonedLockerId;
+            Assert.True(indexOfLocker1 < indexOfLocker2);
+        }
     }
 }

@@ -4,7 +4,6 @@
     {
         private int capacity;
         private Locker[] lockers;
-        private Locker locker = new Locker();
         private int index = 0;
 
         public Robot(int capacity)
@@ -24,6 +23,7 @@
                 return null;
             }
             Ticket ticket = lockers[index].Store(bag);
+            ticket.belonedLockerId = index;
             index++;
             return ticket;
         }
