@@ -43,7 +43,6 @@
     <Compile Include="Bag.cs" />
     <Compile Include="RobotTest\RobotTest.cs" />
     <Compile Include="Robot\Robot.cs" />
-    <Compile Include="StoreBagInFullLockerException.cs" />
     <Compile Include="Locker\Locker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LockerTest\LockerTest.cs" />

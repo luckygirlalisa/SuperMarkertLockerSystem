@@ -7,39 +7,31 @@ namespace SuperMarketLockerSystem
 {
     public class Locker
     {
-        private int storeFlag = 0;
-        List<Bag> bags = new List<Bag>();
-        List<Ticket> tickets = new List<Ticket>();
+        private bool isStored = false;
+        private Bag bag;
+        private Ticket ticket;
 
-        public Ticket Store(Bag parameterBag)
+        public Ticket Store(Bag bag)
         {
-            if (storeFlag == 0)
+            if (!isStored)
             {
-                storeFlag ++ ;
-                bags.Add(parameterBag);
-                Ticket ticket = new Ticket(parameterBag);
-                tickets.Add(ticket);
+                this.bag = bag;
+                isStored = true;
+                ticket =  new Ticket();
                 return ticket;
             }
-            else
-            {
-                throw new StoreBagInFullLockerException("Can't store parameterBag in a full locker");
-            }
+            return null;
         }
 
-//        public Bag PickWith(Ticket ticket)
-//        {
-//            return bags.Where(bag => bag.Equals(ticket.bag));
-//        }
-
-        public Bag PickWith(Ticket ticket)
+        public Bag Pick(Ticket ticket)
         {
-            if (ticket != null)
+            if (this.ticket == ticket)
             {
-                storeFlag--; 
-                return bags.First(bag => bag.Equals(ticket.bag));
+                isStored = false;
+                return bag;
             }
-            throw new InvaidTicketException("Ticket is null");
+            return null;
+
         }
     }
 }

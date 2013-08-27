@@ -1,10 +1,16 @@
-﻿namespace SuperMarketLockerSystem.Robot
+﻿namespace SuperMarketLockerSystem
 {
-    internal class Robot
+    public class Robot
     {
+        private Locker locker = new Locker();
         public Ticket Store(Bag bag)
         {
-            return new Ticket(bag);
+            return locker.Store(bag);
+        }
+
+        public Bag Pick(Ticket ticket)
+        {
+            return locker.Pick(ticket);
         }
     }
 }

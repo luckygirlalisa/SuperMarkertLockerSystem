@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace SuperMarketLockerSystem.SuperMarketLockerSystemTest
 {
@@ -18,7 +13,7 @@ namespace SuperMarketLockerSystem.SuperMarketLockerSystemTest
         }
 
         [Test]
-        public void should_return_ticket_when_store_a_bag_from_a_locker()
+        public void should_return_ticket_not_null_when_store_a_bag_in_a_locker()
         {
             //given
             var bag = new Bag();
@@ -29,52 +24,53 @@ namespace SuperMarketLockerSystem.SuperMarketLockerSystemTest
         }
 
         [Test]
-        public void should_throw_StoreInFullLockerException_when_store_bag_in_full_locker()
+        public void should_return_null_when_store_bag_in_stored_locker()
         {
             var bag1 = new Bag();
             var bag2 = new Bag();
             locker.Store(bag1);
-            Assert.Throws<StoreBagInFullLockerException>(() => locker.Store(bag2));
+            Assert.Null(locker.Store(bag2));
         }
 
         [Test]
-        public void should_can_store_nothing_in_locker()
+        public void should_return_ticket_not_null_when_store_nothing()
         {
-            Bag bag = null;
-            Ticket ticket = locker.Store(bag);
-            Assert.That(ticket, Is.Not.Null);
+            Ticket ticket = locker.Store(null);
+            Assert.NotNull(ticket);
         }
 
         [Test]
-        public void should_pick_correct_bag_with_ticket()
+        public void should_return_the_same_bag_as_stored_when_pick()
         {
-            Bag storedBag = new Bag();
-            Ticket ticket = locker.Store(storedBag);
-            Bag pickedBag = locker.PickWith(ticket);
-            Assert.AreEqual(storedBag, pickedBag); //todo: should use sameAs not equals.
+            var stored_bag = new Bag();
+            Ticket ticket =  locker.Store(stored_bag);
+            var picked_bag = locker.Pick(ticket);
+            Assert.That(picked_bag, Is.SameAs(stored_bag));
         }
 
         [Test]
-        public void should_throw_InvalidTicketException_when_pick_a_bag_with_null_ticket()
+        public void should_return_null_when_pick_with_null_ticket()
         {
-            Ticket ticket = null;
-            Assert.Throws<InvaidTicketException>(() => locker.PickWith(ticket));
+            Assert.Null(locker.Pick(null));
         }
 
         [Test]
-//        [Ignore]
-        public void should_return_null_when_pick_a_bag_with_not_mapped_ticket()
+        public void should_return_null_when_pick_with_not_matched_ticket()
         {
-            Bag bag = new Bag();
-            locker.Store(bag);
-            Ticket ticket = new Ticket(new Bag());
-            Assert.That(locker.PickWith(ticket), Is.Null);
+            Ticket not_matched_ticket = new Ticket();
+            locker.Store(new Bag());
+            Assert.Null(locker.Pick(not_matched_ticket));
         }
 
-    }
-
-    internal class InvaidTicketException: Exception
-    {
-        public InvaidTicketException(string message) : base(message) {}
+        [Test]
+        public void should_be_able_to_store_after_picked()
+        {
+            Bag bag1 = new Bag();
+            Bag bag2 = new Bag();
+            locker.Pick(locker.Store(bag1));
+            Assert.NotNull(locker.Store(bag2));
+        }
     }
 }
+
+       

@@ -1,10 +1,16 @@
 ﻿using NUnit.Framework;
 
-namespace SuperMarketLockerSystem.RobotTest
+namespace SuperMarketLockerSystem
 {
     class RobotTest
     {
-        private Robot robot = new Robot();
+        private Robot robot;
+        [SetUp]
+        public void SetUp()
+        {
+            robot = new Robot();
+        }
+
         [Test]
         public void should_return_ticket_when_store()
         {
@@ -16,15 +22,14 @@ namespace SuperMarketLockerSystem.RobotTest
             Assert.NotNull(ticket);
         }
         [Test]
-        [Ignore]
-        public void should_throw_StoreBagInFullLockerException_when_store_in_stored_locker()
+        public void should_return_null_when_store_in_stored_locker()
         {
             //given
             var bag = new Bag();
             //when
-
+            robot.Store(bag);
             //then
-            Assert.Throws<StoreBagInFullLockerException>(() => robot.Store(bag));
+            Assert.Null(robot.Store(new Bag()));
         }
 
         [Test]
@@ -34,19 +39,6 @@ namespace SuperMarketLockerSystem.RobotTest
             var ticket = robot.Store(storedBag);
             Bag pickedBag = robot.Pick(ticket);
             Assert.That(pickedBag, Is.SameAs(storedBag));
-        }
-    }
-
-    internal class Robot
-    {
-        public Ticket Store(Bag bag)
-        {
-            return new Ticket(bag);
-        }
-
-        public Bag Pick(Ticket ticket)
-        {
-            return null;
         }
     }
 }
