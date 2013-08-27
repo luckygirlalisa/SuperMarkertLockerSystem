@@ -51,19 +51,18 @@ namespace SuperMarketLockerSystem.SuperMarketLockerSystemTest
             Bag storedBag = new Bag();
             Ticket ticket = locker.Store(storedBag);
             Bag pickedBag = locker.PickWith(ticket);
-            Assert.AreEqual(storedBag, pickedBag);
+            Assert.AreEqual(storedBag, pickedBag); //todo: should use sameAs not equals.
         }
 
         [Test]
         public void should_throw_InvalidTicketException_when_pick_a_bag_with_null_ticket()
         {
-            Bag bag = new Bag();
             Ticket ticket = null;
             Assert.Throws<InvaidTicketException>(() => locker.PickWith(ticket));
         }
 
         [Test]
-        [Ignore]
+//        [Ignore]
         public void should_return_null_when_pick_a_bag_with_not_mapped_ticket()
         {
             Bag bag = new Bag();

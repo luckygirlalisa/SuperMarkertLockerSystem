@@ -36,7 +36,8 @@ namespace SuperMarketLockerSystem
         {
             if (ticket != null)
             {
-                return bags.FirstOrDefault(bag => bag.Equals(ticket.bag));
+                storeFlag--; 
+                return bags.First(bag => bag.Equals(ticket.bag));
             }
             throw new InvaidTicketException("Ticket is null");
         }
