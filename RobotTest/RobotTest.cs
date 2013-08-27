@@ -62,6 +62,13 @@ namespace SuperMarketLockerSystem
             Assert.That(bag2, Is.SameAs(robot.Pick(ticket2)));
         }
 
+        [Test]
+        public void should_return_null_when_pick_with_null_or_not_matched_ticket()
+        {
+            Assert.Null(robot.Pick(null));
+            Assert.Null(robot.Pick(new Ticket()));
+        }
+
         [Test]//TODO: refactor: Added code for test, bad smell
         public void should_store_in_order_when_store_multiple_bags()
         {
