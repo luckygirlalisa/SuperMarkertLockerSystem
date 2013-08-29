@@ -12,7 +12,7 @@
             lockers = new Locker[this.capacity];
             for (int i = 0; i < capacity; i++)
             {
-                lockers[i] = new Locker();
+                lockers[i] = new Locker(10);
             }
         }
 

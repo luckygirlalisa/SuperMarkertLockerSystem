@@ -9,7 +9,7 @@ namespace SuperMarketLockerSystem.SuperMarketLockerSystemTest
         [SetUp]
         public void SetUp()
         {
-            locker = new Locker();
+            locker = new Locker(10);
         }
 
         [Test]
@@ -24,19 +24,18 @@ namespace SuperMarketLockerSystem.SuperMarketLockerSystemTest
         }
 
         [Test]
-        public void should_return_null_when_store_bag_in_stored_locker()
-        {
-            var bag1 = new Bag();
-            var bag2 = new Bag();
-            locker.Store(bag1);
-            Assert.Null(locker.Store(bag2));
-        }
-
-        [Test]
         public void should_return_ticket_not_null_when_store_nothing()
         {
             Ticket ticket = locker.Store(null);
             Assert.NotNull(ticket);
+        }
+
+        [Test]
+        public void should_be_able_to_store_multiple_bags_in_one_locker()
+        {
+            locker = new Locker(2);
+            locker.Store(new Bag());
+            Assert.NotNull(locker.Store(new Bag()));
         }
 
         [Test]
@@ -63,8 +62,9 @@ namespace SuperMarketLockerSystem.SuperMarketLockerSystemTest
         }
 
         [Test]
-        public void should_be_able_to_store_after_picked()
+        public void should_be_able_to_store_after_picked_from_full_locker()
         {
+            locker = new Locker(1);
             Bag bag1 = new Bag();
             Bag bag2 = new Bag();
             locker.Pick(locker.Store(bag1));
