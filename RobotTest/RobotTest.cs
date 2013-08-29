@@ -1,16 +1,26 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 
-namespace SuperMarketLockerSystem
+namespace SuperMarketLockerSystem.RobotTest
 {
     class RobotTest
     {
-        private Robot robot;
-        private int capacity;
+        private Locker locker1;
+        private Locker locker2;
+        private List<Locker> lockers; 
+        private Robot.Robot robot;
+
         [SetUp]
         public void SetUp()
         {
-            capacity = 10;
-            robot = new Robot(capacity);
+            locker1 = new Locker(1);
+            locker2 = new Locker(2);
+            lockers = new List<Locker>();
+            lockers.Add(locker1);
+            lockers.Add(locker2);
+            
+            robot = new Robot.Robot();
+            robot.Manage(lockers);
         }
 
         [Test]
@@ -34,7 +44,7 @@ namespace SuperMarketLockerSystem
         }
 
         [Test]
-        public void should_be_able_to_store_in_multiple_locker()
+        public void should_be_able_to_store_multiple_bags()
         {
             var bag1 = new Bag();
             var bag2 = new Bag();
@@ -43,13 +53,14 @@ namespace SuperMarketLockerSystem
         }
 
         [Test]
-        public void should_return_null_when_store_with_all_lockers_are_stored()
+        public void should_return_null_when_store_with_all_lockers_are_full()
         {
-            for (int i = 0; i < capacity; i++)
-            {
-                robot.Store(new Bag());
-            }
-            Assert.Null(robot.Store(new Bag()));
+            robot.Store(new Bag());
+            robot.Store(new Bag());
+            robot.Store(new Bag());
+            
+            Ticket ticket = robot.Store(new Bag());
+            Assert.Null(ticket);
         }
 
         [Test]
@@ -69,16 +80,13 @@ namespace SuperMarketLockerSystem
             Assert.Null(robot.Pick(new Ticket()));
         }
 
-        [Test]//TODO: refactor: Added code for test, bad smell
-        public void should_store_in_order_when_store_multiple_bags()
+        [Test]
+        public void should_store_in_locker_with_most_available_boxes()
         {
-            var bag1 = new Bag();
-            var bag2 = new Bag();
-            Ticket ticket1 = robot.Store(bag1);
-            int indexOfLocker1 = ticket1.belonedLockerId;
-            Ticket ticket2 = robot.Store(bag2);
-            int indexOfLocker2 = ticket2.belonedLockerId;
-            Assert.True(indexOfLocker1 < indexOfLocker2);
+            var storedBag = new Bag();
+            Ticket ticket1 = robot.Store(storedBag);
+            Bag pickedBag = locker2.Pick(ticket1);
+            Assert.That(pickedBag, Is.SameAs(storedBag));
         }
     }
 }

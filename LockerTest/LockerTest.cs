@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace SuperMarketLockerSystem.SuperMarketLockerSystemTest
+namespace SuperMarketLockerSystem.LockerTest
 {
     internal class LockerTest
     {
@@ -18,7 +18,7 @@ namespace SuperMarketLockerSystem.SuperMarketLockerSystemTest
             //given
             var bag = new Bag();
             //when
-            Ticket ticket = locker.Store(bag);
+            var ticket = locker.Store(bag);
             //then
             Assert.NotNull(ticket);
         }
@@ -41,10 +41,10 @@ namespace SuperMarketLockerSystem.SuperMarketLockerSystemTest
         [Test]
         public void should_return_the_same_bag_as_stored_when_pick()
         {
-            var stored_bag = new Bag();
-            Ticket ticket =  locker.Store(stored_bag);
-            var picked_bag = locker.Pick(ticket);
-            Assert.That(picked_bag, Is.SameAs(stored_bag));
+            var storedBag = new Bag();
+            Ticket ticket =  locker.Store(storedBag);
+            var pickedBag = locker.Pick(ticket);
+            Assert.That(pickedBag, Is.SameAs(storedBag));
         }
 
         [Test]
@@ -56,17 +56,17 @@ namespace SuperMarketLockerSystem.SuperMarketLockerSystemTest
         [Test]
         public void should_return_null_when_pick_with_not_matched_ticket()
         {
-            Ticket not_matched_ticket = new Ticket();
+            var notMatchedTicket = new Ticket();
             locker.Store(new Bag());
-            Assert.Null(locker.Pick(not_matched_ticket));
+            Assert.Null(locker.Pick(notMatchedTicket));
         }
 
         [Test]
         public void should_be_able_to_store_after_picked_from_full_locker()
         {
             locker = new Locker(1);
-            Bag bag1 = new Bag();
-            Bag bag2 = new Bag();
+            var bag1 = new Bag();
+            var bag2 = new Bag();
             locker.Pick(locker.Store(bag1));
             Assert.NotNull(locker.Store(bag2));
         }

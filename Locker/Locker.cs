@@ -1,30 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using SuperMarketLockerSystem.SuperMarketLockerSystemTest;
 
 namespace SuperMarketLockerSystem
 {
     public class Locker
     {
-        private bool isFull;
-        private int availableBoxesNum;
+        public bool isLockerAvailable;
+        public int availableBoxesNum;
         private Dictionary<Ticket, Bag> ticketBagRelation = new Dictionary<Ticket, Bag>(); 
 
         public Locker(int availableBoxesNum)
         {
             this.availableBoxesNum = availableBoxesNum;
-            isFull = isAvailableLocker();
+            isLockerAvailable = isAvailableLocker();
         }
 
         public Ticket Store(Bag bag)
         {
-            if (!isFull)
+            if (isLockerAvailable)
             {
                 var ticket = new Ticket();
                 ticketBagRelation.Add(ticket, bag);
                 availableBoxesNum--;
-                isFull = isAvailableLocker();
+                isLockerAvailable = isAvailableLocker();
                 return ticket;
             }
             return null;
@@ -35,7 +34,7 @@ namespace SuperMarketLockerSystem
             if (hasMatchedTicket(ticket))
             {
                 availableBoxesNum++;
-                isFull = isAvailableLocker();
+                isLockerAvailable = isAvailableLocker();
                 return ticketBagRelation[ticket];
             }
             return null;
@@ -49,7 +48,7 @@ namespace SuperMarketLockerSystem
 
         private bool isAvailableLocker()
         {
-            return availableBoxesNum < 0;
+            return availableBoxesNum > 0;
         }
 
     }

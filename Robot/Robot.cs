@@ -1,44 +1,49 @@
-﻿namespace SuperMarketLockerSystem
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace SuperMarketLockerSystem.Robot
 {
     public class Robot
     {
-        private int capacity;
-        private Locker[] lockers;
-        private int index = 0;
-
-        public Robot(int capacity)
-        {
-            this.capacity = capacity;
-            lockers = new Locker[this.capacity];
-            for (int i = 0; i < capacity; i++)
-            {
-                lockers[i] = new Locker(10);
-            }
-        }
+        private List<Locker> lockers;
 
         public Ticket Store(Bag bag)
         {
-            if (index > capacity-1)
+            if (IsRobotAvailable())
             {
-                return null;
-            }
-            Ticket ticket = lockers[index].Store(bag);
-            ticket.belonedLockerId = index;
-            index++;
-            return ticket;
-        }
-
-        public Bag Pick(Ticket ticket)
-        {
-            for (int i = 0; i < capacity; i++)
-            {
-                Bag bag = lockers[i].Pick(ticket);
-                if (bag != null)
-                {
-                    return bag;
-                }
+                var locker = GetLockerWithMostAvailableBoxes();
+                return locker.Store(bag);
             }
             return null;
         }
+      
+        public Bag Pick(Ticket ticket)
+        {
+            return lockers.Select(locker => locker.Pick(ticket)).FirstOrDefault(pickedBag => pickedBag != null);
+        }
+
+        public void Manage(List<Locker> lockers)
+        {
+            this.lockers = lockers;
+        }
+
+        private Locker GetLockerWithMostAvailableBoxes()
+        {
+            return lockers.Find(l =>
+            {
+                var max = lockers.Select(locker => locker.availableBoxesNum).Concat(new[] {0}).Max();
+                return l.availableBoxesNum == max;
+            });
+        }
+
+        private bool IsRobotAvailable()
+        {
+            if (lockers.Count != 0)
+            {
+                return lockers.Any(l => l.isLockerAvailable);
+            }
+            return false;
+        }
+
     }
 }
