@@ -35,7 +35,9 @@ namespace SuperMarketLockerSystem
             {
                 availableBoxesNum++;
                 isLockerAvailable = isAvailableLocker();
-                return ticketBagRelation[ticket];
+                var bag = ticketBagRelation[ticket];
+                ticketBagRelation.Remove(ticket);
+                return bag;
             }
             return null;
 
