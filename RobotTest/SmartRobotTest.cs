@@ -22,17 +22,6 @@ namespace SuperMarketLockerSystem.RobotTest
         }
 
         [Test]
-        public void should_return_ticket_when_store()
-        {
-            //given
-            var bag = new Bag();
-            //when
-            Ticket ticket = robot.Store(bag);
-            //then
-            Assert.NotNull(ticket);
-        }
-
-        [Test]
         public void should_be_able_to_store_multiple_bags()
         {
             var bag1 = new Bag();
@@ -41,17 +30,6 @@ namespace SuperMarketLockerSystem.RobotTest
             var ticket2 = robot.Store(bag2);
             Assert.NotNull(ticket2);
             Assert.That(ticket1, Is.Not.EqualTo(ticket2));
-        }
-
-        [Test]
-        public void robot_can_manage_multiple_locker()
-        {
-            robot.Store(new Bag());
-            robot.Store(new Bag());
-            robot.Store(new Bag());
-
-            Assert.True(locker1.availableBoxesNum == 0);
-            Assert.True(locker2.availableBoxesNum == 0);
         }
 
         [Test]
@@ -72,47 +50,6 @@ namespace SuperMarketLockerSystem.RobotTest
             Ticket ticket1 = robot.Store(storedBag);
             Bag pickedBag = locker2.Pick(ticket1);
             Assert.That(pickedBag, Is.SameAs(storedBag));
-        }
-
-        [Test]
-        public void should_return_the_same_bag_stored_when_pick_with_a_ticket()
-        {
-            var storedBag = new Bag();
-            var ticket = robot.Store(storedBag);
-            Bag pickedBag = robot.Pick(ticket);
-            Assert.That(pickedBag, Is.SameAs(storedBag));
-        }
-
-        [Test]
-        public void should_return_correct_bag_when_pick_with_ticket_after_multiple_store()
-        {
-            var bag1 = new Bag();
-            var bag2 = new Bag();
-            robot.Store(bag1);
-            var ticket2 = robot.Store(bag2);
-            Assert.That(bag2, Is.SameAs(robot.Pick(ticket2)));
-        }
-
-        [Test]
-        public void should_return_null_when_pick_with_null_or_not_matched_ticket()
-        {
-            Assert.Null(robot.Pick(null));
-            Assert.Null(robot.Pick(new Ticket()));
-        }
-
-        [Test]
-        public void should_return_null_when_pick_with_used_ticket()
-        {
-            robot.Store(new Bag());
-            var usedTicket = robot.Store(new Bag());
-            robot.Pick(usedTicket);
-            Assert.Null(robot.Pick(usedTicket));
-        }
-
-        [Test]
-        public void should_return_null_when_pick_with_null()
-        {
-            Assert.Null(robot.Pick(null));
         }
     }
 }
