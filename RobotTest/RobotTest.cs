@@ -66,11 +66,11 @@ namespace SuperMarketLockerSystem.RobotTest
         }
 
         [Test]
-        public void should_store_in_locker_with_most_available_boxes()
+        public void should_store_in_locker_with_locker_index()
         {
             var storedBag = new Bag();
             Ticket ticket1 = robot.Store(storedBag);
-            Bag pickedBag = locker2.Pick(ticket1);
+            Bag pickedBag = locker1.Pick(ticket1);
             Assert.That(pickedBag, Is.SameAs(storedBag));
         }
 

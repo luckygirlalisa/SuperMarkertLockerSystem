@@ -11,7 +11,7 @@ namespace SuperMarketLockerSystem.Robot
         {
             if (IsRobotAvailable())
             {
-                var locker = GetLockerWithMostAvailableBoxes();
+                var locker = GetAvailableLockerWithSmallIndex();
                 return locker.Store(bag);
             }
             return null;
@@ -27,13 +27,9 @@ namespace SuperMarketLockerSystem.Robot
             this.lockers = lockers;
         }
 
-        private Locker GetLockerWithMostAvailableBoxes()
+        private Locker GetAvailableLockerWithSmallIndex()
         {
-            return lockers.Find(l =>
-            {
-                var max = lockers.Select(locker => locker.availableBoxesNum).Concat(new[] {0}).Max();
-                return l.availableBoxesNum == max;
-            });
+            return lockers.FirstOrDefault(locker => locker.isLockerAvailable);
         }
 
         private bool IsRobotAvailable()
