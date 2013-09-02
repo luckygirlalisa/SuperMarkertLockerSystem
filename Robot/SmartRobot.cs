@@ -14,12 +14,12 @@ namespace SuperMarketLockerSystem.Robot
             return null;
         }
       
-        private Locker GetLockerWithMostAvailableBoxes()
+        private Locker.Locker GetLockerWithMostAvailableBoxes()
         {
             return Lockers.Find(l =>
             {
-                var max = Lockers.Select(locker => locker.availableBoxesNum).Concat(new[] {0}).Max();
-                return l.availableBoxesNum == max;
+                var max = Lockers.Select(locker => locker.AvailableBoxesNum).Concat(new[] {0}).Max();
+                return l.AvailableBoxesNum == max;
             });
         }
     }

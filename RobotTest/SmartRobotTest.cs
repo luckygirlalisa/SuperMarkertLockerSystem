@@ -5,17 +5,17 @@ namespace SuperMarketLockerSystem.RobotTest
 {
     class SmartRobotTest
     {
-        private Locker locker1;
-        private Locker locker2;
-        private List<Locker> lockers; 
+        private Locker.Locker locker1;
+        private Locker.Locker locker2;
+        private List<Locker.Locker> lockers; 
         private Robot.SmartRobot robot;
 
         [SetUp]
         public void SetUp()
         {
-            locker1 = new Locker(1);
-            locker2 = new Locker(2);
-            lockers = new List<Locker> {locker1, locker2};
+            locker1 = new Locker.Locker(1);
+            locker2 = new Locker.Locker(2);
+            lockers = new List<Locker.Locker> {locker1, locker2};
 
             robot = new Robot.SmartRobot();
             robot.Manage(lockers);

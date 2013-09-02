@@ -1,29 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
-namespace SuperMarketLockerSystem
+namespace SuperMarketLockerSystem.Locker
 {
     public class Locker
     {
-        public bool isLockerAvailable;
-        public int availableBoxesNum;
-        private Dictionary<Ticket, Bag> ticketBagRelation = new Dictionary<Ticket, Bag>(); 
+        public bool IsLockerAvailable;
+        public int AvailableBoxesNum;
+        private readonly Dictionary<Ticket, Bag> ticketBagRelation = new Dictionary<Ticket, Bag>(); 
 
         public Locker(int availableBoxesNum)
         {
-            this.availableBoxesNum = availableBoxesNum;
-            isLockerAvailable = isAvailableLocker();
+            AvailableBoxesNum = availableBoxesNum;
+            IsLockerAvailable = IsAvailableLocker();
         }
 
         public Ticket Store(Bag bag)
         {
-            if (isLockerAvailable)
+            if (IsLockerAvailable)
             {
                 var ticket = new Ticket();
                 ticketBagRelation.Add(ticket, bag);
-                availableBoxesNum--;
-                isLockerAvailable = isAvailableLocker();
+                AvailableBoxesNum--;
+                IsLockerAvailable = IsAvailableLocker();
                 return ticket;
             }
             return null;
@@ -31,10 +29,10 @@ namespace SuperMarketLockerSystem
 
         public Bag Pick(Ticket ticket)
         {
-            if (hasMatchedTicket(ticket))
+            if (HasMatchedTicket(ticket))
             {
-                availableBoxesNum++;
-                isLockerAvailable = isAvailableLocker();
+                AvailableBoxesNum++;
+                IsLockerAvailable = IsAvailableLocker();
                 var bag = ticketBagRelation[ticket];
                 ticketBagRelation.Remove(ticket);
                 return bag;
@@ -43,14 +41,14 @@ namespace SuperMarketLockerSystem
 
         }
 
-        private bool hasMatchedTicket(Ticket ticket)
+        private bool HasMatchedTicket(Ticket ticket)
         {
             return ticketBagRelation != null && ticket != null && ticketBagRelation.ContainsKey(ticket);
         }
 
-        private bool isAvailableLocker()
+        private bool IsAvailableLocker()
         {
-            return availableBoxesNum > 0;
+            return AvailableBoxesNum > 0;
         }
 
     }

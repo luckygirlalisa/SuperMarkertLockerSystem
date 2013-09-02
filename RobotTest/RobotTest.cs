@@ -5,17 +5,17 @@ namespace SuperMarketLockerSystem.RobotTest
 {
     class RobotTest
     {
-        private Locker locker1;
-        private Locker locker2;
-        private List<Locker> lockers; 
+        private Locker.Locker locker1;
+        private Locker.Locker locker2;
+        private List<Locker.Locker> lockers; 
         private Robot.Robot robot;
 
         [SetUp]
         public void SetUp()
         {
-            locker1 = new Locker(1);
-            locker2 = new Locker(2);
-            lockers = new List<Locker> {locker1, locker2};
+            locker1 = new Locker.Locker(1);
+            locker2 = new Locker.Locker(2);
+            lockers = new List<Locker.Locker> {locker1, locker2};
 
             robot = new Robot.Robot();
             robot.Manage(lockers);
@@ -24,11 +24,8 @@ namespace SuperMarketLockerSystem.RobotTest
         [Test]
         public void should_return_ticket_when_store()
         {
-            //given
             var bag = new Bag();
-            //when
             Ticket ticket = robot.Store(bag);
-            //then
             Assert.NotNull(ticket);
         }
 
@@ -50,8 +47,8 @@ namespace SuperMarketLockerSystem.RobotTest
             robot.Store(new Bag());
             robot.Store(new Bag());
 
-            Assert.True(locker1.availableBoxesNum == 0);
-            Assert.True(locker2.availableBoxesNum == 0);
+            Assert.True(locker1.AvailableBoxesNum == 0);
+            Assert.True(locker2.AvailableBoxesNum == 0);
         }
 
         [Test]

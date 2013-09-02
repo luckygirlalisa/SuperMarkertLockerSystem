@@ -5,13 +5,13 @@ namespace SuperMarketLockerSystem.Robot
 {
     public class Robot
     {
-        protected List<Locker> Lockers;
+        protected List<Locker.Locker> Lockers;
 
         public virtual Ticket Store(Bag bag)
         {
             if (IsRobotAvailable())
             {
-                var locker = GetAvailableLockerWithSmallIndex();
+                var locker = GetAvailableLockerWithLeastIndex();
                 return locker.Store(bag);
             }
             return null;
@@ -22,24 +22,19 @@ namespace SuperMarketLockerSystem.Robot
             return Lockers.Select(locker => locker.Pick(ticket)).FirstOrDefault(pickedBag => pickedBag != null);
         }
 
-        public void Manage(List<Locker> lockers)
+        public void Manage(List<Locker.Locker> lockers)
         {
             Lockers = lockers;
         }
 
-        private Locker GetAvailableLockerWithSmallIndex()
-        {
-            return Lockers.FirstOrDefault(locker => locker.isLockerAvailable);
+        private Locker.Locker GetAvailableLockerWithLeastIndex()
+        {   
+            return Lockers.FirstOrDefault(locker => locker.IsLockerAvailable);
         }
 
         protected bool IsRobotAvailable()
         {
-            if (Lockers.Count != 0)
-            {
-                return Lockers.Any(l => l.isLockerAvailable);
-            }
-            return false;
+            return Lockers.Count != 0 && Lockers.Any(l => l.IsLockerAvailable);
         }
-
     }
 }
