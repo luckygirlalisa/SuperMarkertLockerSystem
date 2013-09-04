@@ -1,7 +1,0 @@
-c:\users\zfxiao\documents\visual studio 2012\Projects\SuperMarketLockerSystem\SuperMarketLockerSystem\obj\Debug\SuperMarketLockerSystem.csprojResolveAssemblyReference.cache
-c:\users\zfxiao\documents\visual studio 2012\Projects\SuperMarketLockerSystem\SuperMarketLockerSystem\bin\Debug\SuperMarketLockerSystem.dll
-c:\users\zfxiao\documents\visual studio 2012\Projects\SuperMarketLockerSystem\SuperMarketLockerSystem\bin\Debug\SuperMarketLockerSystem.pdb
-c:\users\zfxiao\documents\visual studio 2012\Projects\SuperMarketLockerSystem\SuperMarketLockerSystem\bin\Debug\nunit.framework.dll
-c:\users\zfxiao\documents\visual studio 2012\Projects\SuperMarketLockerSystem\SuperMarketLockerSystem\bin\Debug\nunit.framework.xml
-c:\users\zfxiao\documents\visual studio 2012\Projects\SuperMarketLockerSystem\SuperMarketLockerSystem\obj\Debug\SuperMarketLockerSystem.dll
-c:\users\zfxiao\documents\visual studio 2012\Projects\SuperMarketLockerSystem\SuperMarketLockerSystem\obj\Debug\SuperMarketLockerSystem.pdb
