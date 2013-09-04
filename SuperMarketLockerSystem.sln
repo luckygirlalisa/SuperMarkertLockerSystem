@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMarketLockerSystem", "SuperMarketLockerSystem\SuperMarketLockerSystem.csproj", "{29643B2D-AE05-4AC9-A3A8-0BF045AD94FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMarketLockerSystemUnitTests", "SuperMarketLockerSystemUnitTests\SuperMarketLockerSystemUnitTests.csproj", "{684345A2-B234-45E6-ADBF-C59AA920ECA5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{29643B2D-AE05-4AC9-A3A8-0BF045AD94FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29643B2D-AE05-4AC9-A3A8-0BF045AD94FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29643B2D-AE05-4AC9-A3A8-0BF045AD94FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{684345A2-B234-45E6-ADBF-C59AA920ECA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{684345A2-B234-45E6-ADBF-C59AA920ECA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{684345A2-B234-45E6-ADBF-C59AA920ECA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{684345A2-B234-45E6-ADBF-C59AA920ECA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
