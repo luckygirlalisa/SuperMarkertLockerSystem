@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace SuperMarketLockerSystem.Robot
+namespace SuperMarketLockerSystem
 {
     public class SmartRobot : Robot
     {
@@ -14,7 +14,7 @@ namespace SuperMarketLockerSystem.Robot
             return null;
         }
       
-        private Locker.Locker GetLockerWithMostAvailableBoxes()
+        private Locker GetLockerWithMostAvailableBoxes()
         {
             return Lockers.Find(l =>
             {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SuperMarketLockerSystem.Locker
+namespace SuperMarketLockerSystem
 {
     public class Locker
     {

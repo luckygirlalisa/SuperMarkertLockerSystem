@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace SuperMarketLockerSystem.Robot
+namespace SuperMarketLockerSystem
 {
     public class Robot
     {
-        protected List<Locker.Locker> Lockers;
+        protected List<Locker> Lockers;
 
         public virtual Ticket Store(Bag bag)
         {
@@ -22,12 +22,12 @@ namespace SuperMarketLockerSystem.Robot
             return Lockers.Select(locker => locker.Pick(ticket)).FirstOrDefault(pickedBag => pickedBag != null);
         }
 
-        public void Manage(List<Locker.Locker> lockers)
+        public void Manage(List<Locker> lockers)
         {
             Lockers = lockers;
         }
 
-        private Locker.Locker GetAvailableLockerWithLeastIndex()
+        private Locker GetAvailableLockerWithLeastIndex()
         {   
             return Lockers.FirstOrDefault(locker => locker.IsLockerAvailable);
         }
