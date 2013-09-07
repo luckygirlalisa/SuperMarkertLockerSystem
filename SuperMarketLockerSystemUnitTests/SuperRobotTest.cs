@@ -32,6 +32,20 @@ namespace SuperMarketLockerSystemUnitTests
         }
 
         [Test]
+        public void should_return_null_when_store_with_all_lockers_are_full()
+        {
+            locker1 = new Locker(1);
+            locker2 = new Locker(2);
+            superRobot.Manage(lockers);
+
+            superRobot.Store(new Bag());
+            superRobot.Store(new Bag());
+
+            Ticket ticket = superRobot.Store(new Bag());
+            Assert.Null(ticket);
+        }
+
+        [Test]
         public void Should_return_null_with_no_locker_managed()
         {
             lockers = new List<Locker>();
