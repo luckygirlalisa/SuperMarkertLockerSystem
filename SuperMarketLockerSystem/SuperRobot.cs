@@ -1,4 +1,4 @@
-﻿namespace SuperMarketLockerSystem
+﻿﻿namespace SuperMarketLockerSystem
 {
     public class SuperRobot : Robot
     {
