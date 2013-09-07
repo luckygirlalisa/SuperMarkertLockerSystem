@@ -1,7 +1,7 @@
 bin
 obj
-*.dll
-*.suo
-*.pdb
 *.csproj
-*.sln.*.user
+*.dll
+*.pdb
+*.csproj.FileListAbsolute.txt
+*.cache

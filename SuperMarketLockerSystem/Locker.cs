@@ -6,11 +6,13 @@ namespace SuperMarketLockerSystem
     {
         public bool IsLockerAvailable;
         public int AvailableBoxesNum;
-        private readonly Dictionary<Ticket, Bag> ticketBagRelation = new Dictionary<Ticket, Bag>(); 
 
-        public Locker(int availableBoxesNum)
+        private readonly Dictionary<Ticket, Bag> ticketBagRelation = new Dictionary<Ticket, Bag>();
+        private readonly int boxesTotal;
+
+        public Locker(int boxesTotal)
         {
-            AvailableBoxesNum = availableBoxesNum;
+            AvailableBoxesNum = this.boxesTotal = boxesTotal;
             IsLockerAvailable = IsAvailableLocker();
         }
 
@@ -39,6 +41,11 @@ namespace SuperMarketLockerSystem
             }
             return null;
 
+        }
+
+        public float GetAvailableBoxesPercentage()
+        {
+            return  AvailableBoxesNum/boxesTotal;
         }
 
         private bool HasMatchedTicket(Ticket ticket)
