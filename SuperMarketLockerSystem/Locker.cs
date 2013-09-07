@@ -4,16 +4,19 @@ namespace SuperMarketLockerSystem
 {
     public class Locker
     {
-        public bool IsLockerAvailable;
+        public bool IsLockerAvailable
+        {
+            get{return AvailableBoxesNum > 0;}
+        }
+
         public int AvailableBoxesNum;
+        private readonly int boxesTotal;
 
         private readonly Dictionary<Ticket, Bag> ticketBagRelation = new Dictionary<Ticket, Bag>();
-        private readonly int boxesTotal;
 
         public Locker(int boxesTotal)
         {
             AvailableBoxesNum = this.boxesTotal = boxesTotal;
-            IsLockerAvailable = IsAvailableLocker();
         }
 
         public Ticket Store(Bag bag)
@@ -23,7 +26,6 @@ namespace SuperMarketLockerSystem
                 var ticket = new Ticket();
                 ticketBagRelation.Add(ticket, bag);
                 AvailableBoxesNum--;
-                IsLockerAvailable = IsAvailableLocker();
                 return ticket;
             }
             return null;
@@ -34,7 +36,6 @@ namespace SuperMarketLockerSystem
             if (HasMatchedTicket(ticket))
             {
                 AvailableBoxesNum++;
-                IsLockerAvailable = IsAvailableLocker();
                 var bag = ticketBagRelation[ticket];
                 ticketBagRelation.Remove(ticket);
                 return bag;
@@ -52,11 +53,5 @@ namespace SuperMarketLockerSystem
         {
             return ticketBagRelation != null && ticket != null && ticketBagRelation.ContainsKey(ticket);
         }
-
-        private bool IsAvailableLocker()
-        {
-            return AvailableBoxesNum > 0;
-        }
-
     }
 }
