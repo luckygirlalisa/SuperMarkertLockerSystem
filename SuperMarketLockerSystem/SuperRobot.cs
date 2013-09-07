@@ -1,36 +1,20 @@
-﻿using System.Collections.Generic;
-
-namespace SuperMarketLockerSystem
+﻿namespace SuperMarketLockerSystem
 {
-    public class SuperRobot 
+    public class SuperRobot : Robot
     {
-        private readonly List<Locker> lockers = new List<Locker>();
-
-        public Ticket Store(Bag bag)
+        protected override Locker GetLocker()
         {
-            if (lockers.Count == 0)
-                return null;
-
             float maxPercentage = 0;
-            var maxLocker = new Locker(0);
-            foreach (var locker in lockers)
+            var maxVacancyRateLocker = new Locker(0);
+            foreach (var locker in Lockers)
             {
                 if (locker.GetAvailableBoxesPercentage() > maxPercentage)
                 {
                     maxPercentage = locker.GetAvailableBoxesPercentage();
-                    maxLocker = locker;
+                    maxVacancyRateLocker = locker;
                 }
             }
-
-            return maxLocker.Store(bag);
-        }
-
-        public void Manage(List<Locker> lockers)
-        {
-            foreach (Locker locker in lockers)
-            {
-                this.lockers.Add(locker);
-            }
+            return maxVacancyRateLocker;
         }
     }
 }

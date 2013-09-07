@@ -11,7 +11,7 @@ namespace SuperMarketLockerSystem
         {
             if (IsRobotAvailable())
             {
-                var locker = GetAvailableLockerWithLeastIndex();
+                var locker = GetLocker();
                 return locker.Store(bag);
             }
             return null;
@@ -30,7 +30,7 @@ namespace SuperMarketLockerSystem
             }
         }
 
-        private Locker GetAvailableLockerWithLeastIndex()
+        protected virtual Locker GetLocker()
         {   
             return Lockers.FirstOrDefault(locker => locker.IsLockerAvailable);
         }
