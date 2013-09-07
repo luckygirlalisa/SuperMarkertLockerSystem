@@ -44,5 +44,32 @@ namespace SuperMarketLockerSystemUnitTests
             var ticket = superRobot.Store(new Bag());
             Assert.NotNull(locker2.Pick(ticket));
         }
+
+        [Test]
+        public void Should_return_null_when_store_in_full_super_robot()
+        {
+            locker1 = new Locker(1);
+            lockers = new List<Locker> {locker1};
+            superRobot.Manage(lockers);
+            superRobot.Store(new Bag());
+
+            Assert.Null(superRobot.Store(new Bag()));
+        }
+
+        [Test]
+        public void Should_return_bag_when_Pick_with_ticket()
+        {
+            locker1 = new Locker(10);
+            lockers = new List<Locker> {locker1};
+            superRobot.Manage(lockers);
+
+            var storedBag = new Bag();
+            Ticket ticket = superRobot.Store(storedBag);
+            var pickedBag = superRobot.Pick(ticket);
+
+            Assert.AreSame(pickedBag, storedBag);
+        }
+
+
     }
 }
