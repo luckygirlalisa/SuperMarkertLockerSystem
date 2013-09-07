@@ -5,7 +5,7 @@ namespace SuperMarketLockerSystem
 {
     public class Robot
     {
-        protected List<Locker> Lockers;
+        protected List<Locker> Lockers = new List<Locker>();
 
         public virtual Ticket Store(Bag bag)
         {
@@ -24,7 +24,10 @@ namespace SuperMarketLockerSystem
 
         public void Manage(List<Locker> lockers)
         {
-            Lockers = lockers;
+            foreach (var locker in lockers)
+            {
+                Lockers.Add(locker);
+            }
         }
 
         private Locker GetAvailableLockerWithLeastIndex()

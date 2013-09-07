@@ -4,17 +4,7 @@ namespace SuperMarketLockerSystem
 {
     public class SmartRobot : Robot
     {
-        public override Ticket Store(Bag bag)
-        {
-            if (IsRobotAvailable())
-            {
-                var locker = GetLockerWithMostAvailableBoxes();
-                return locker.Store(bag);
-            }
-            return null;
-        }
-      
-        private Locker GetLockerWithMostAvailableBoxes()
+        protected override Locker GetLocker()
         {
             return Lockers.Find(l =>
             {

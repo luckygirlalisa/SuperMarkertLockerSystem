@@ -37,6 +37,15 @@ namespace SuperMarketLockerSystemUnitTests
         }
 
         [Test]
+        public void Should_return_null_when_Store_in_full_locker()
+        {
+            locker = new Locker(1);
+            locker.Store(new Bag());
+            Assert.Null(locker.Store(new Bag()));
+        }
+
+
+        [Test]
         public void should_return_the_same_bag_as_stored_when_pick()
         {
             var storedBag = new Bag();
