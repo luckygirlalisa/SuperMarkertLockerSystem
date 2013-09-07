@@ -19,12 +19,13 @@ namespace SuperMarketLockerSystemUnitTests
             lockers = new List<Locker> {locker1, locker2};
 
             robot = new Robot();
-            robot.Manage(lockers);
         }
 
         [Test]
         public void should_return_ticket_when_store()
         {
+            robot.Manage(lockers);
+
             var bag = new Bag();
             Ticket ticket = robot.Store(bag);
             Assert.NotNull(ticket);
@@ -33,6 +34,8 @@ namespace SuperMarketLockerSystemUnitTests
         [Test]
         public void should_be_able_to_store_multiple_bags()
         {
+            robot.Manage(lockers);
+
             var bag1 = new Bag();
             var bag2 = new Bag();
             var ticket1 = robot.Store(bag1);
@@ -44,6 +47,8 @@ namespace SuperMarketLockerSystemUnitTests
         [Test]
         public void robot_can_manage_multiple_locker()
         {
+            robot.Manage(lockers);
+
             robot.Store(new Bag());
             robot.Store(new Bag());
             robot.Store(new Bag());
@@ -55,6 +60,8 @@ namespace SuperMarketLockerSystemUnitTests
         [Test]
         public void should_return_null_when_store_with_all_lockers_are_full()
         {
+            robot.Manage(lockers);
+
             robot.Store(new Bag());
             robot.Store(new Bag());
             robot.Store(new Bag());
@@ -64,8 +71,18 @@ namespace SuperMarketLockerSystemUnitTests
         }
 
         [Test]
+        public void Should_return_null_with_no_locker_managed()
+        {
+            lockers = new List<Locker>();
+            robot.Manage(lockers);
+            Assert.Null(robot.Store(new Bag()));
+        }
+
+        [Test]
         public void should_store_in_locker_with_locker_index()
         {
+            robot.Manage(lockers);
+
             var storedBag = new Bag();
             Ticket ticket1 = robot.Store(storedBag);
             Bag pickedBag = locker1.Pick(ticket1);
@@ -75,6 +92,8 @@ namespace SuperMarketLockerSystemUnitTests
         [Test]
         public void should_return_the_same_bag_stored_when_pick_with_a_ticket()
         {
+            robot.Manage(lockers);
+
             var storedBag = new Bag();
             var ticket = robot.Store(storedBag);
             Bag pickedBag = robot.Pick(ticket);
@@ -84,6 +103,8 @@ namespace SuperMarketLockerSystemUnitTests
         [Test]
         public void should_return_correct_bag_when_pick_with_ticket_after_multiple_store()
         {
+            robot.Manage(lockers);
+
             var bag1 = new Bag();
             var bag2 = new Bag();
             robot.Store(bag1);
@@ -94,6 +115,8 @@ namespace SuperMarketLockerSystemUnitTests
         [Test]
         public void should_return_null_when_pick_with_null_or_not_matched_ticket()
         {
+            robot.Manage(lockers);
+
             Assert.Null(robot.Pick(null));
             Assert.Null(robot.Pick(new Ticket()));
         }
@@ -101,6 +124,8 @@ namespace SuperMarketLockerSystemUnitTests
         [Test]
         public void should_return_null_when_pick_with_used_ticket()
         {
+            robot.Manage(lockers);
+
             robot.Store(new Bag());
             var usedTicket = robot.Store(new Bag());
             robot.Pick(usedTicket);
@@ -110,6 +135,8 @@ namespace SuperMarketLockerSystemUnitTests
         [Test]
         public void should_return_null_when_pick_with_null()
         {
+            robot.Manage(lockers);
+
             Assert.Null(robot.Pick(null));
         }
     }
