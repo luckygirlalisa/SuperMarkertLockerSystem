@@ -29,8 +29,6 @@ namespace SuperMarketLockerSystem
                 Lockers.Add(locker);
             }
         }
-
-        public int Type { get; set; }
         protected virtual Locker GetLocker()
         {   
             return Lockers.FirstOrDefault(locker => locker.IsLockerAvailable);
