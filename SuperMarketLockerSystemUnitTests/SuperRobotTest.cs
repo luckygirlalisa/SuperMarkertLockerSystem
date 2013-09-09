@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 using SuperMarketLockerSystem;
 
@@ -11,7 +10,7 @@ namespace SuperMarketLockerSystemUnitTests
         private Locker locker1;
         private Locker locker2;
         private List<Locker> lockers;
-            
+
         [SetUp]
         public void Init()
         {
@@ -23,7 +22,7 @@ namespace SuperMarketLockerSystemUnitTests
         {
             locker1 = new Locker(11);
             locker2 = new Locker(10);
-            lockers = new List<Locker> { locker1, locker2 };
+            lockers = new List<Locker> {locker1, locker2};
             superRobot.Manage(lockers);
 
             locker1.Store(new Bag());
@@ -36,6 +35,7 @@ namespace SuperMarketLockerSystemUnitTests
         {
             locker1 = new Locker(1);
             locker2 = new Locker(2);
+            lockers = new List<Locker> {locker1, locker2};
             superRobot.Manage(lockers);
 
             superRobot.Store(new Bag());

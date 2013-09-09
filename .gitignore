@@ -16,6 +16,7 @@ jobs/*/config-history/**/*.xml
 # vs
 obj
 bin
+/obj/Debug
 *.csproj
 *.dll
 *.vbproj.user
