@@ -7,26 +7,27 @@ namespace SuperMarketLockerSystemUnitTests
     public class ManagerTest
     {
         [Test]
-        public void Should_store_into_locker_when_locker_is_not_full()
+        public void should_store_into_locker_when_locker_is_not_full()
         {
             var locker = new Locker(2);
             var manager = new Manager(locker);
-            
+
             var ticket = manager.Store(new Bag());
-            
+
             Assert.NotNull(ticket);
             Assert.NotNull(locker.Pick(ticket));
         }
 
         [Test]
-        public void Should_store_into_robot_when_locker_is_full()
+        public void should_store_into_robot_when_locker_is_full()
         {
-            var lockerForRobot = new Locker(1);
             var robot = new Robot();
-            robot.Manage(new List<Locker>{lockerForRobot});
-            var lockerForManager = new Locker(1);
-            var manager = new Manager(lockerForManager, robot);
-            
+            robot.Manage(new List<Locker> {new Locker(1)});
+
+            var locker = new Locker(1);
+
+            var manager = new Manager(locker, robot);
+
             manager.Store(new Bag());
             var ticket = manager.Store(new Bag());
 
@@ -35,16 +36,18 @@ namespace SuperMarketLockerSystemUnitTests
         }
 
         [Test]
-        public void Should_store_into_smart_robot_when_locker_and_robot_are_full()
+        public void should_store_into_smart_robot_when_locker_and_robot_are_full()
         {
             var smartRobot = new SmartRobot();
-            smartRobot.Manage(new List<Locker>{new Locker(1)});
+            smartRobot.Manage(new List<Locker> {new Locker(1)});
 
             var robot = new Robot();
-            robot.Manage(new List<Locker>{new Locker(1)});
+            robot.Manage(new List<Locker> {new Locker(1)});
 
-            var manager = new Manager(new Locker(1), robot, smartRobot);
-           
+            var locker = new Locker(1);
+
+            var manager = new Manager(locker, robot, smartRobot);
+
             manager.Store(new Bag());
             manager.Store(new Bag());
             var ticket = manager.Store(new Bag());
@@ -56,13 +59,13 @@ namespace SuperMarketLockerSystemUnitTests
         public void should_store_into_super_robot_when_locker_and_robot_and_smart_robot_are_all_full()
         {
             var superRobot = new SuperRobot();
-            superRobot.Manage(new List<Locker>{new Locker(1)});
+            superRobot.Manage(new List<Locker> {new Locker(1)});
 
             var smartRobot = new SmartRobot();
-            smartRobot.Manage(new List<Locker>{new Locker(1)});
+            smartRobot.Manage(new List<Locker> {new Locker(1)});
 
             var robot = new Robot();
-            robot.Manage(new List<Locker>{new Locker(1)});
+            robot.Manage(new List<Locker> {new Locker(1)});
 
             var locker = new Locker(1);
 
@@ -75,10 +78,7 @@ namespace SuperMarketLockerSystemUnitTests
 
             Assert.NotNull(ticket);
             Assert.NotNull(superRobot.Pick(ticket));
-
         }
-
-
     }
 
     public class Manager
@@ -86,7 +86,7 @@ namespace SuperMarketLockerSystemUnitTests
         private readonly Locker locker;
         private readonly Robot robot;
         private readonly SmartRobot smartRobot;
-        private SuperRobot superRobot;
+        private readonly SuperRobot superRobot;
 
         public Manager(Locker locker, Robot robot = null, SmartRobot smartRobot = null, SuperRobot superRobot = null)
         {
