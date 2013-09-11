@@ -79,6 +79,20 @@ namespace SuperMarketLockerSystemUnitTests
             Assert.NotNull(ticket);
             Assert.NotNull(superRobot.Pick(ticket));
         }
+
+        [Test]
+        public void should_return_bag_when_pick_from_locker_with_correct_ticket()
+        {
+            var locker = new Locker(1);
+            var manager = new Manager(locker);
+
+            var storedBag = new Bag();
+            var ticket = manager.Store(storedBag);
+
+            var pickedBag = manager.Pick(ticket);
+            Assert.AreEqual(pickedBag, storedBag);
+        }
+
     }
 
     public class Manager
@@ -100,6 +114,11 @@ namespace SuperMarketLockerSystemUnitTests
         {
             var ticket = locker.Store(bag) ?? (robot.Store(bag) ?? (smartRobot.Store(bag) ?? superRobot.Store(bag)));
             return ticket;
+        }
+
+        public Bag Pick(Ticket ticket)
+        {
+            return locker.Pick(ticket);
         }
     }
 }
