@@ -111,6 +111,56 @@ namespace SuperMarketLockerSystemUnitTests
             Assert.AreEqual(storedBag, pickedBag);
         }
 
+        [Test]
+        public void should_return_bag_when_pick_if_bag_is_stored_into_smart_robot()
+        {
+            var smartRobot = new SmartRobot();
+            smartRobot.Manage(new List<Locker> { new Locker(1) });
+
+            var robot = new Robot();
+            robot.Manage(new List<Locker> { new Locker(1) });
+
+            var locker = new Locker(1);
+
+            var manager = new Manager(locker, robot, smartRobot);
+
+            manager.Store(new Bag());
+            manager.Store(new Bag());
+            var storedBag = new Bag();
+            var ticket = manager.Store(storedBag);
+
+            var pickedBag = manager.Pick(ticket);
+
+            Assert.AreEqual(pickedBag, storedBag);
+        }
+
+        [Test]
+        public void should_return_bag_when_pick_if_bag_is_stored_into_super_robot()
+        {
+            var superRobot = new SuperRobot();
+            superRobot.Manage(new List<Locker> { new Locker(1) });
+
+            var smartRobot = new SmartRobot();
+            smartRobot.Manage(new List<Locker> { new Locker(1) });
+
+            var robot = new Robot();
+            robot.Manage(new List<Locker> { new Locker(1) });
+
+            var locker = new Locker(1);
+
+            var manager = new Manager(locker, robot, smartRobot, superRobot);
+
+            manager.Store(new Bag());
+            manager.Store(new Bag());
+            manager.Store(new Bag());
+            var storedBag = new Bag();
+            var ticket = manager.Store(storedBag);
+
+            var pickedBag = manager.Pick(ticket);
+
+            Assert.AreEqual(pickedBag, storedBag);
+        }
+
     }
 
     public class Manager
@@ -136,7 +186,7 @@ namespace SuperMarketLockerSystemUnitTests
 
         public Bag Pick(Ticket ticket)
         {
-            return locker.Pick(ticket) ?? robot.Pick(ticket);
+            return locker.Pick(ticket) ?? robot.Pick(ticket) ?? smartRobot.Pick(ticket) ?? superRobot.Pick(ticket);
         }
     }
 }
