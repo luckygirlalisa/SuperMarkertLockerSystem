@@ -81,7 +81,7 @@ namespace SuperMarketLockerSystemUnitTests
         }
 
         [Test]
-        public void should_return_bag_when_pick_from_locker_with_correct_ticket()
+        public void should_return_bag_when_pick_if_bag_is_stored_into_locker()
         {
             var locker = new Locker(1);
             var manager = new Manager(locker);
@@ -91,6 +91,24 @@ namespace SuperMarketLockerSystemUnitTests
 
             var pickedBag = manager.Pick(ticket);
             Assert.AreEqual(pickedBag, storedBag);
+        }
+
+        [Test]
+        public void should_return_bag_when_pick_if_bag_is_stored_into_robot()
+        {
+            var robot = new Robot();
+            robot.Manage(new List<Locker> { new Locker(1) });
+
+            var locker = new Locker(1);
+
+            var manager = new Manager(locker, robot);
+
+            manager.Store(new Bag());
+            var storedBag = new Bag();
+            var ticket = manager.Store(storedBag);
+            var pickedBag = manager.Pick(ticket);
+
+            Assert.AreEqual(storedBag, pickedBag);
         }
 
     }
@@ -118,7 +136,7 @@ namespace SuperMarketLockerSystemUnitTests
 
         public Bag Pick(Ticket ticket)
         {
-            return locker.Pick(ticket);
+            return locker.Pick(ticket) ?? robot.Pick(ticket);
         }
     }
 }
